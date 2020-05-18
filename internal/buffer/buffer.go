@@ -174,6 +174,18 @@ const (
 	DSDeletedAbove = 3
 )
 
+
+/// !!! PSEUDO CODE !!! ////
+
+type OwnerNavigation struct {
+
+	messages []*Message
+	curMessage int
+}
+
+////////////////////////////
+
+
 type DiffStatus byte
 
 // Buffer stores the main information about a currently open file including
@@ -190,6 +202,9 @@ type Buffer struct {
 	cursors     []*Cursor
 	curCursor   int
 	StartCursor Loc
+	
+	/// !!! PSEUDO CODE !!! ////
+	ownerNavigations map[string]OwnerNavigation
 }
 
 // NewBufferFromFile opens a new buffer using the given path
