@@ -91,7 +91,6 @@ func (b *Buffer) InitializeOwnerNavigation(owner string) {
 	on := &OwnerNavigation{ curMessage: -1 }
 
 	// Make a view of the messages belonging to the owner.
-
 	for _, m := on.messages {
 		if m.Owner == owner {
 			on.messages = append(on.messages, m)
@@ -99,6 +98,9 @@ func (b *Buffer) InitializeOwnerNavigation(owner string) {
 	}
 
 	ownerNavigations[owner] = on
+	
+	// Make sure an owner is known when a navigation command is handled.
+	b.latestNavigationOwner = owner
 }
 
 func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) {
