@@ -103,12 +103,12 @@ func (b *Buffer) InitializeOwnerNavigation(owner string) {
 	b.latestNavigationOwner = owner
 }
 
-func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) (bool, Loc) {
-	on := b.ownerNavigations[owner]
+func (b *Buffer) NavigateToCertainOwnerMessage(next bool) (bool, Loc) {
+	on := b.ownerNavigations[b.latestNavigationOwner]
 
-	// Lua code might produce unknown owner, so don't panic.	
+	// Something  might produce an unknown owner, so don't panic.
 	if on == nil {
-		log.Println("NavigateToCertainOwnerMessage called with unknown owner \"%v\"", owner)
+		log.Println("NavigateToCertainOwnerMessage called, but latestNavigationOwner \"%v\" is unknown", b.latestNavigationOwner)
 		return false, nil
 	}
 
