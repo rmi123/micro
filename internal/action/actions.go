@@ -1187,13 +1187,15 @@ func (h *BufPane) jumpToCertainMessage(next bool) bool {
 	// FIXME: I have no idea how BufPane and Buffer relate in this regard.
 	buffer := h
 	
-	if ok, loc := buffer.NavigateToCertainOwnerMessage(next); ok {	
+	ok, loc, info := buffer.NavigateToCertainOwnerMessage(next)
+	
+	if ok {
 		h.Cursor.GotoLoc(loc)
 		h.Relocate()
-		return true
 	}
-
-	return false
+	
+	InfoBar.Message(info)
+	return ok
 }
 
 // JumpToPreviousMessage moves the cursor to the previous message.
