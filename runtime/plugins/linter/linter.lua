@@ -147,6 +147,9 @@ function lint(buf, linter, cmd, args, errorformat, loff, coff, callback)
     end
 
     shell.JobSpawn(cmd, args, nil, nil, onExit, buf, linter, errorformat, loff, coff)
+    
+    -- !!! PSEUDO CODE !!!
+    buf:InitializeOwnerNavigation(linter)
 end
 
 function onExit(output, args)
