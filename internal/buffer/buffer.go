@@ -178,7 +178,6 @@ const (
 /// !!! PSEUDO CODE !!! ////
 
 type OwnerNavigation struct {
-
 	messages []*Message
 	curMessage int
 }
@@ -260,7 +259,6 @@ func NewBuffer(r io.Reader, size int64, path string, startcursor Loc, btype BufT
 	b := new(Buffer)
 	
 	/// !!! PSEUDO CODE !!! ///
-
 	b.ownerNavigations = make(map[string]*OwnerNavigation)
 
 	found := false
