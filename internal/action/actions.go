@@ -1182,13 +1182,12 @@ func (h *BufPane) JumpToMatchingBrace() bool {
 
 // jumpToCertainMessage moves the cursor to the previous or next message of the latest owner (linter).
 func (h *BufPane) jumpToCertainMessage(next bool) bool {
-	
 	h.Cursor.Deselect(true)
 
 	// FIXME: I have no idea how BufPane and Buffer relate in this regard.
 	buffer := h
 	
-	if ok, loc := NavigateToCertainOwnerMessage(buffer.latestNavigationOwner, next); ok {	
+	if ok, loc := buffer.NavigateToCertainOwnerMessage(next); ok {	
 		h.Cursor.GotoLoc(loc)
 		h.Relocate()
 		return true
@@ -1199,13 +1198,11 @@ func (h *BufPane) jumpToCertainMessage(next bool) bool {
 
 // JumpToPreviousMessage moves the cursor to the previous message.
 func (h *BufPane)  JumpToPreviousMessage() bool {
-	
 	return jumpToCertainMessage(false)
 }
 
 // JumpToNextMessage moves the cursor to the next message.
 func (h *BufPane)  JumpToPreviousMessage() bool {
-	
 	return jumpToCertainMessage(true)
 }
 
