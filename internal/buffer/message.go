@@ -3,6 +3,7 @@ package buffer
 import (
 	"github.com/zyedidia/micro/v2/internal/config"
 	"github.com/zyedidia/tcell"
+	"fmt"
 )
 
 type MsgType int
@@ -103,16 +104,14 @@ func (b *Buffer) InitializeOwnerNavigation(owner string) {
 	b.latestNavigationOwner = owner
 }
 
-func (b *Buffer) NavigateToCertainOwnerMessage(next bool) (bool, Loc) {
+func (b *Buffer) NavigateToCertainOwnerMessage(next bool) (bool, Loc, string) {
 	on := b.ownerNavigations[b.latestNavigationOwner]
 
-	// Something  might produce an unknown owner, so don't panic.
-	if on == nil {
-		log.Println("NavigateToCertainOwnerMessage called, but latestNavigationOwner \"%v\" is unknown", b.latestNavigationOwner)
-		return false, nil
-	}
+	// If on is nil, this must be because no linting was done yet, return.
+	if on == nil { return false, nil, "No linting was done yet." }
 
-	if len(on.messages) == 0 { return false, nil }
+	// If there have been no messages, return.
+	if len(on.messages) == 0 { return false, nil, "The linter did not output Messages." }
 
 	if next { on.curMessage++ } else { on.curMessage-- }
 
@@ -120,7 +119,9 @@ func (b *Buffer) NavigateToCertainOwnerMessage(next bool) (bool, Loc) {
 		on.curMessage = 0
 	}
 
-	return true, on.messages[on.curMessage].Start	
+	return	true,
+			on.messages[on.curMessage].Start,
+			fmt.Sprintf("Jumped to message number %v.", 1+on.curMessage)
 }
 
 //////////////////////////
