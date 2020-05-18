@@ -203,7 +203,8 @@ type Buffer struct {
 	StartCursor Loc
 	
 	/// !!! PSEUDO CODE !!! ////
-	ownerNavigations map[string]*OwnerNavigation
+	ownerNavigations      map[string]*OwnerNavigation
+	latestNavigationOwner string
 }
 
 // NewBufferFromFile opens a new buffer using the given path
