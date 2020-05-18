@@ -88,11 +88,7 @@ func (b *Buffer) ClearAllMessages() {
 //////////////////////////
 
 func (b *Buffer) InitializeOwnerNavigation(owner string) {
-
-	on := OwnerNavigation{
-		messages: make([]*Message, 0),
-		curMessage: -1
-	}
+	on := OwnerNavigation{ curMessage: -1 }
 
 	// Make a view of the messages belonging to the owner.
 
@@ -106,18 +102,13 @@ func (b *Buffer) InitializeOwnerNavigation(owner string) {
 }
 
 func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) {
-
 	on := b.ownerNavigations[owner]
 
-	if len(on.messages) == 0 {
-
-		return
-	}
+	if len(on.messages) == 0 { return }
 
 	if next { on.curMessage++ } else { on.curMessage-- }
 
 	if on.curMessage < 0 || on.curMessage >= len(on.messages) {
-
 		on.curMessage = 0
 	}
 
@@ -125,12 +116,10 @@ func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) {
 }
 
 func (b *Buffer) NavigateToPreviousOwnerMessage(owner string) {
-
 	NavigateToCertainOwnerMessage(owner, false)
 }
 
 func (b *Buffer) NavigateToNextOwnerMessage(owner string) {
-
 	NavigateToCertainOwnerMessage(owner, true)
 }
 
