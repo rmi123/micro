@@ -103,16 +103,16 @@ func (b *Buffer) InitializeOwnerNavigation(owner string) {
 	b.latestNavigationOwner = owner
 }
 
-func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) {
+func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) (bool, Loc) {
 	on := b.ownerNavigations[owner]
 
 	// Lua code might produce unknown owner, so don't panic.	
 	if on == nil {
 		log.Println("NavigateToCertainOwnerMessage called with unknown owner \"%v\"", owner)
-		return
+		return false, nil
 	}
 
-	if len(on.messages) == 0 { return }
+	if len(on.messages) == 0 { return false, nil }
 
 	if next { on.curMessage++ } else { on.curMessage-- }
 
@@ -120,15 +120,15 @@ func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) {
 		on.curMessage = 0
 	}
 
-	b.GetActiveCursor().GoToLoc(on.messages[on.curMessage].Start)
+	return true, on.messages[on.curMessage].Start	
 }
 
-func (b *Buffer) NavigateToPreviousOwnerMessage(owner string) {
-	NavigateToCertainOwnerMessage(owner, false)
+func (b *Buffer) NavigateToPreviousOwnerMessage(owner string) (bool, Loc) {
+	return NavigateToCertainOwnerMessage(owner, false)
 }
 
-func (b *Buffer) NavigateToNextOwnerMessage(owner string) {
-	NavigateToCertainOwnerMessage(owner, true)
+func (b *Buffer) NavigateToNextOwnerMessage(owner string) (bool, Loc) {
+	return NavigateToCertainOwnerMessage(owner, true)
 }
 
 //////////////////////////
