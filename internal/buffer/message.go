@@ -88,7 +88,7 @@ func (b *Buffer) ClearAllMessages() {
 //////////////////////////
 
 func (b *Buffer) InitializeOwnerNavigation(owner string) {
-	on := OwnerNavigation{ curMessage: -1 }
+	on := &OwnerNavigation{ curMessage: -1 }
 
 	// Make a view of the messages belonging to the owner.
 
