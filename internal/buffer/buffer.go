@@ -204,7 +204,7 @@ type Buffer struct {
 	StartCursor Loc
 	
 	/// !!! PSEUDO CODE !!! ////
-	ownerNavigations map[string]OwnerNavigation
+	ownerNavigations map[string]*OwnerNavigation
 }
 
 // NewBufferFromFile opens a new buffer using the given path
@@ -261,7 +261,7 @@ func NewBuffer(r io.Reader, size int64, path string, startcursor Loc, btype BufT
 	
 	/// !!! PSEUDO CODE !!! ///
 
-	b.ownerNavigations = make(map[string]OwnerNavigation)
+	b.ownerNavigations = make(map[string]*OwnerNavigation)
 
 	found := false
 	if len(path) > 0 {
