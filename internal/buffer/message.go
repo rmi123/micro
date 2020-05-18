@@ -104,6 +104,12 @@ func (b *Buffer) InitializeOwnerNavigation(owner string) {
 func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) {
 	on := b.ownerNavigations[owner]
 
+	// Lua code might produce unknown owner, so don't panic.	
+	if on == nil {
+		log.Println("NavigateToCertainOwnerMessage called with unknown owner \"%v\"", owner)
+		return
+	}
+
 	if len(on.messages) == 0 { return }
 
 	if next { on.curMessage++ } else { on.curMessage-- }
