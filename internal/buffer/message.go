@@ -123,12 +123,4 @@ func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) (bool, L
 	return true, on.messages[on.curMessage].Start	
 }
 
-func (b *Buffer) NavigateToPreviousOwnerMessage(owner string) (bool, Loc) {
-	return NavigateToCertainOwnerMessage(owner, false)
-}
-
-func (b *Buffer) NavigateToNextOwnerMessage(owner string) (bool, Loc) {
-	return NavigateToCertainOwnerMessage(owner, true)
-}
-
 //////////////////////////
