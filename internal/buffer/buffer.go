@@ -258,6 +258,10 @@ func NewBuffer(r io.Reader, size int64, path string, startcursor Loc, btype BufT
 	absPath, _ := filepath.Abs(path)
 
 	b := new(Buffer)
+	
+	/// !!! PSEUDO CODE !!! ///
+
+	b.ownerNavigations = make(map[string]OwnerNavigation)
 
 	found := false
 	if len(path) > 0 {
