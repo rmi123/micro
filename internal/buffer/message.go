@@ -114,14 +114,14 @@ func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) {
 		return
 	}
 
+	if next { on.curMessage++ } else { on.curMessage-- }
+
 	if on.curMessage < 0 || on.curMessage >= len(on.messages) {
 
 		on.curMessage = 0
 	}
 
 	b.GetActiveCursor().GoToLoc(on.messages[on.curMessage].Start)
-
-	if next { on.curMessage++ } else { on.curMessage-- }
 }
 
 func (b *Buffer) NavigateToPreviousOwnerMessage(owner string) {
