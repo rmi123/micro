@@ -82,3 +82,56 @@ func (b *Buffer) ClearMessages(owner string) {
 func (b *Buffer) ClearAllMessages() {
 	b.Messages = make([]*Message, 0)
 }
+
+//////////////////////////
+// !!! PSEUDO CODE !!! ///
+//////////////////////////
+
+func (b *Buffer) InitializeOwnerNavigation(owner string) {
+
+	on := OwnerNavigation{
+		messages: make([]*Message, 0),
+		curMessage: 0
+	}
+
+	// Make a view of the messages belonging to the owner.
+
+	for _, m := on.messages {
+		if m.Owner == owner {
+			on.messages = append(on.messages, m)
+		}
+	}
+
+	ownerNavigations[owner] = on
+}
+
+func (b *Buffer) NavigateToCertainOwnerMessage(owner string, next bool) {
+
+	on := b.ownerNavigations[owner]
+
+	if len(on.messages) == 0 {
+
+		return
+	}
+
+	if on.curMessage < 0 || on.curMessage >= len(on.messages) {
+
+		on.curMessage = 0
+	}
+
+	b.GetActiveCursor().GoToLoc(on.messages[on.curMessage].Start)
+
+	if next { on.curMessage++ } else { on.curMessage-- }
+}
+
+func (b *Buffer) NavigateToPreviousOwnerMessage(owner string) {
+
+	NavigateToCertainOwnerMessage(owner, false)
+}
+
+func (b *Buffer) NavigateToNextOwnerMessage(owner string) {
+
+	NavigateToCertainOwnerMessage(owner, true)
+}
+
+//////////////////////////
