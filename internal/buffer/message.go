@@ -91,7 +91,7 @@ func (b *Buffer) InitializeOwnerNavigation(owner string) {
 
 	on := OwnerNavigation{
 		messages: make([]*Message, 0),
-		curMessage: 0
+		curMessage: -1
 	}
 
 	// Make a view of the messages belonging to the owner.
