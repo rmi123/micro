@@ -1204,7 +1204,7 @@ func (h *BufPane)  JumpToPreviousMessage() bool {
 }
 
 // JumpToNextMessage moves the cursor to the next message.
-func (h *BufPane)  JumpToPreviousMessage() bool {
+func (h *BufPane)  JumpToNextMessage() bool {
 	return jumpToCertainMessage(true)
 }
 
